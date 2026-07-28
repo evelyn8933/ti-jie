@@ -365,6 +365,92 @@ header .menu-btn {
 body, .sidebar, .problem-section, .code-block, header, .cat-list a, .search-input {
   transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
+
+/* ===== Gallery Section ===== */
+.gallery-section {
+  background: var(--card-bg); border-radius: 12px;
+  padding: 32px 36px; margin-bottom: 36px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--rule);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s;
+}
+.gallery-section h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.3rem; font-weight: 700; color: var(--accent);
+  margin-bottom: 24px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--accent2);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.gallery-item {
+  background: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+.gallery-item img {
+  width: 100%; height: 160px; object-fit: cover;
+  display: block;
+}
+.gallery-item .gallery-caption {
+  padding: 10px 14px; font-size: 0.82rem;
+  color: var(--ink); font-weight: 500;
+  text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ===== Lightbox ===== */
+.lightbox {
+  display: none; position: fixed; z-index: 9999;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.88);
+  align-items: center; justify-content: center;
+  flex-direction: column;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 92vw; max-height: 82vh;
+  border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  object-fit: contain;
+}
+.lightbox-caption {
+  color: #ccc; margin-top: 16px; font-size: 0.9rem;
+  max-width: 80vw; text-align: center;
+}
+.lightbox-close {
+  position: absolute; top: 20px; right: 30px;
+  color: #fff; font-size: 2rem; cursor: pointer;
+  background: none; border: none; line-height: 1;
+  transition: opacity 0.2s; z-index: 10000;
+}
+.lightbox-close:hover { opacity: 0.7; }
+.lightbox-prev, .lightbox-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.15); border: none;
+  color: #fff; font-size: 2.5rem; cursor: pointer;
+  padding: 12px 18px; border-radius: 8px;
+  transition: background 0.2s; z-index: 10000;
+  user-select: none;
+}
+.lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.3); }
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+
+@media (max-width: 768px) {
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .gallery-item img { height: 120px; }
+  .lightbox-prev { left: 8px; padding: 8px 12px; font-size: 1.8rem; }
+  .lightbox-next { right: 8px; padding: 8px 12px; font-size: 1.8rem; }
+}
 </style>
 </head>
 <body>
@@ -429,6 +515,10 @@ body, .sidebar, .problem-section, .code-block, header, .cat-list a, .search-inpu
         <div class="cat-group">
           <h3 class="cat-title">数独与回溯</h3>
           <ul class="cat-list"><li><a href="#p45">#45 真假记忆碎片</a></li></ul>
+        </div>
+        <div class="cat-group">
+          <h3 class="cat-title">截图记录</h3>
+          <ul class="cat-list"><li><a href="#screenshots">5DG在线编程 刷题记录</a></li></ul>
         </div>
 </nav>
 
@@ -4115,9 +4205,96 @@ quick<span class="op">(</span>temp<span class="op">,</span> <span class="num">0<
 
     </section>
 
+    <!-- ===== 截图记录 Gallery ===== -->
+    <section id="screenshots" class="gallery-section">
+      <h2>截图记录 &mdash; 5DG在线编程刷题</h2>
+      <div class="gallery-grid" id="galleryGrid">
+
+        <div class="gallery-item" data-src="images/01-link57-80.jpg" data-caption="Link57-Link80：Dijkstra最短路 &amp; 背包问题系列">
+          <img src="images/01-link57-80.jpg" alt="Link57-Link80" loading="lazy">
+          <div class="gallery-caption">Link57-Link80：Dijkstra最短路 &amp; 背包问题</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/02-jd001-017.jpg" data-caption="JD001-JD017：实验详情 - 程序设计实践之剑道试炼">
+          <img src="images/02-jd001-017.jpg" alt="JD001-JD017" loading="lazy">
+          <div class="gallery-caption">JD001-JD017：实验详情 - 剑道试炼</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/03-jd017-037.jpg" data-caption="JD017-JD037：比试时限 ~ 数链连珠">
+          <img src="images/03-jd017-037.jpg" alt="JD017-JD037" loading="lazy">
+          <div class="gallery-caption">JD017-JD037：比试时限 ~ 数链连珠</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/04-jd036-056.jpg" data-caption="JD036-JD056：奇数求和 ~ 下方剑域">
+          <img src="images/04-jd036-056.jpg" alt="JD036-JD056" loading="lazy">
+          <div class="gallery-caption">JD036-JD056：奇数求和 ~ 下方剑域</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/05-jd053-073.jpg" data-caption="JD053-JD073：完璧归宗 ~ 经文加密">
+          <img src="images/05-jd053-073.jpg" alt="JD053-JD073" loading="lazy">
+          <div class="gallery-caption">JD053-JD073：完璧归宗 ~ 经文加密</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/06-jd072-092.jpg" data-caption="JD072-JD092：拳掌对决 ~ 递归斐波">
+          <img src="images/06-jd072-092.jpg" alt="JD072-JD092" loading="lazy">
+          <div class="gallery-caption">JD072-JD092：拳掌对决 ~ 递归斐波</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/07-jd092-112.jpg" data-caption="JD092-JD112：速归斐波 ~ 叠甲千层">
+          <img src="images/07-jd092-112.jpg" alt="JD092-JD112" loading="lazy">
+          <div class="gallery-caption">JD092-JD112：速归斐波 ~ 叠甲千层</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/08-jd111-131.jpg" data-caption="JD111-JD131：削铁如泥 ~ 蓄势之术">
+          <img src="images/08-jd111-131.jpg" alt="JD111-JD131" loading="lazy">
+          <div class="gallery-caption">JD111-JD131：削铁如泥 ~ 蓄势之术</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/09-jd133-154.jpg" data-caption="JD133-JD154：算筹求值 ~ 二色分界（图论/拓扑/二分图）">
+          <img src="images/09-jd133-154.jpg" alt="JD133-JD154" loading="lazy">
+          <div class="gallery-caption">JD133-JD154：算筹求值 ~ 二色分界</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/10-jd152-172.jpg" data-caption="JD152-JD172：蔓延成网 ~ 千机棋局（DP/图论）">
+          <img src="images/10-jd152-172.jpg" alt="JD152-JD172" loading="lazy">
+          <div class="gallery-caption">JD152-JD172：蔓延成网 ~ 千机棋局</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/11-link01-17.jpg" data-caption="Link01-Link17：实验详情 - 2026程序设计实践例题">
+          <img src="images/11-link01-17.jpg" alt="Link01-Link17" loading="lazy">
+          <div class="gallery-caption">Link01-Link17：实验详情 - 程序设计实践</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/12-link16-36.jpg" data-caption="Link16-Link36：放苹果 ~ 最小预算值">
+          <img src="images/12-link16-36.jpg" alt="Link16-Link36" loading="lazy">
+          <div class="gallery-caption">Link16-Link36：放苹果 ~ 最小预算值</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/13-link35-55.jpg" data-caption="Link35-Link55：数的三次方根 ~ 公主的攻击范围">
+          <img src="images/13-link35-55.jpg" alt="Link35-Link55" loading="lazy">
+          <div class="gallery-caption">Link35-Link55：数的三次方根 ~ 公主的攻击范围</div>
+        </div>
+
+        <div class="gallery-item" data-src="images/14-link52-72.jpg" data-caption="Link52-Link72：波克布林的巡逻范围 ~ 最长上升子序列(2)">
+          <img src="images/14-link52-72.jpg" alt="Link52-Link72" loading="lazy">
+          <div class="gallery-caption">Link52-Link72：BFS巡逻 ~ 最长上升子序列(2)</div>
+        </div>
+
+      </div>
+    </section>
+
 </main>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">▲</button>
+
+<!-- ===== Lightbox ===== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-prev" onclick="prevImage()">&lsaquo;</button>
+  <button class="lightbox-next" onclick="nextImage()">&rsaquo;</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
 
 <script>
 (function() {
@@ -4338,6 +4515,61 @@ quick<span class="op">(</span>temp<span class="op">,</span> <span class="num">0<
 
   document.querySelectorAll('.problem-section').forEach(function(section) {
     observer.observe(section);
+  });
+
+  /* ============================================================
+   * 11. Gallery Lightbox
+   * ============================================================ */
+  var galleryItems = document.querySelectorAll('.gallery-item');
+  var currentIndex = 0;
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxCaption = document.getElementById('lightboxCaption');
+
+  galleryItems.forEach(function(item, index) {
+    item.addEventListener('click', function() {
+      currentIndex = index;
+      openLightbox(item);
+    });
+  });
+
+  function openLightbox(item) {
+    lightboxImg.src = item.getAttribute('data-src');
+    lightboxCaption.textContent = item.getAttribute('data-caption');
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  window.closeLightbox = function() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  window.prevImage = function() {
+    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+    var item = galleryItems[currentIndex];
+    lightboxImg.src = item.getAttribute('data-src');
+    lightboxCaption.textContent = item.getAttribute('data-caption');
+  };
+
+  window.nextImage = function() {
+    currentIndex = (currentIndex + 1) % galleryItems.length;
+    var item = galleryItems[currentIndex];
+    lightboxImg.src = item.getAttribute('data-src');
+    lightboxCaption.textContent = item.getAttribute('data-caption');
+  };
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'ArrowRight') nextImage();
+  });
+
+  // Click outside image to close
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
   });
 
 })();
